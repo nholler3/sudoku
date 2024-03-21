@@ -43,3 +43,4 @@ def validateGrid(sudoku):
     clusterRule(sudoku)
 
     #logic for replacing the number and recursive call
+    #back tracking algorithm
