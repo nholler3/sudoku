@@ -32,7 +32,13 @@ def rowRule(sudoku): #replaces each duplicate number in a row with 0
     return sudoku
 
 def colRule(sudoku):
-    print()
+    for row in range(len(sudoku)): #each row in sudoku
+        for col in range(len(sudoku[0])): # each column number in the row
+            temp=sudoku[row][col] #temporary number holding the position of current row and column
+            if temp!= 0:
+                for i in range(row+1,len(sudoku[0])):#check the rest of the values in the column
+                    if temp == sudoku[i][col]:#replace the duplicate with 0
+                        sudoku[i][col]=0
 
 def clusterRule(sudoku):
     print()
