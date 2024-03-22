@@ -46,7 +46,23 @@ def clusterRule(sudoku):
 def validateGrid(sudoku):
     rowRule(sudoku)
     colRule(sudoku)
-    clusterRule(sudoku)
-
+    #clusterRule(sudoku)
+    solveGrid(sudoku, 0, 0)
+    
+def solveGrid(sudoku, row, col):
     #logic for replacing the number and recursive call
     #back tracking algorithm
+    if row == len(sudoku)-1:
+        return
+    if col== len(sudoku)-1: #make sure we don't overflow
+        col=0
+        row+=1
+
+    #beginning of backtracking
+    if sudoku[row][col] != 0: #if the index is not empty call again
+        print(col)
+        return solveGrid(sudoku, row, col+1)
+    else:
+        sudoku[row][col]='*'
+        print(col,"hit")
+        return solveGrid(sudoku, row, col+1)
