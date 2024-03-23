@@ -52,17 +52,17 @@ def validateGrid(sudoku):
 def solveGrid(sudoku, row, col):
     #logic for replacing the number and recursive call
     #back tracking algorithm
-    if row == len(sudoku)-1:
+    if row >= len(sudoku)-1 and col > len(sudoku)-1:#if we hit the end of the final list then exit
         return
-    if col== len(sudoku)-1: #make sure we don't overflow
+    if col > len(sudoku)-1: #if we hit the end of the row
         col=0
         row+=1
 
     #beginning of backtracking
-    if sudoku[row][col] != 0: #if the index is not empty call again
+    if sudoku[row][col] != 0: #if the index is not empty call again with the next column
         print(col)
         return solveGrid(sudoku, row, col+1)
-    else:
-        sudoku[row][col]='*'
-        print(col,"hit")
+    else: #if the number is 0
+        sudoku[row][col]='*' #replace with the * (for tracking purposes)
+        #print(col,"hit")
         return solveGrid(sudoku, row, col+1)
