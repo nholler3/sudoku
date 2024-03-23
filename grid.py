@@ -1,10 +1,12 @@
 import random as rand
+from board import makeBoard #test purposes
 
 #The same number cannot exist in the same row, column, or cluster
 
 def fillGrid(): #use the rules of sudoku to fill in the 2d array use helper methods
     sudoku=[[rand.randint(1,9) for _ in range(9)] for _ in range(9)]
-    validateGrid(sudoku)
+    validateGrid(sudoku,0, 0)
+    solveGrid(sudoku, 0, 0)
     return sudoku
 
 def fillGrid2(): #does not require rowRule (is it more efficient in the long run?) most likely yes, less 0s to fill in
@@ -18,7 +20,9 @@ def fillGrid2(): #does not require rowRule (is it more efficient in the long run
             num = validNums.pop()  # Take the last element from the shuffled list
             sudoku[row][col] = num
 
-    validateGrid(sudoku)
+    makeBoard(sudoku)#test purposes
+    validateGrid(sudoku, 0, 0)
+    solveGrid(sudoku, 0, 0)
     return sudoku
 
 def rowRule(sudoku): #replaces each duplicate number in a row with 0
@@ -43,11 +47,11 @@ def colRule(sudoku):
 def clusterRule(sudoku):
     print()
 
-def validateGrid(sudoku):
+def validateGrid(sudoku, row, col):
     rowRule(sudoku)
     colRule(sudoku)
     #clusterRule(sudoku)
-    solveGrid(sudoku, 0, 0)
+    #solveGrid(sudoku, row, col)
     
 def solveGrid(sudoku, row, col):
     #logic for replacing the number and recursive call
@@ -60,9 +64,9 @@ def solveGrid(sudoku, row, col):
 
     #beginning of backtracking
     if sudoku[row][col] != 0: #if the index is not empty call again with the next column
-        print(col)
+        #print("(",row,",",col, ") filled")     #test purposes
         return solveGrid(sudoku, row, col+1)
     else: #if the number is 0
         sudoku[row][col]='*' #replace with the * (for tracking purposes)
-        #print(col,"hit")
+        #print("(",row,",",col, ") hit")        #test purposes
         return solveGrid(sudoku, row, col+1)
